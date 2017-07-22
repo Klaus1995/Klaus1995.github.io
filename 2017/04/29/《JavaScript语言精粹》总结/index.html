@@ -111,21 +111,21 @@
 
 
 
-<meta name="description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 Function.prototype.method = function (name, func) {     this.p">
+<meta name="description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 1234Function.prototype.method = function (name, func) &amp;#123;	t">
 <meta name="keywords" content="Javascript,读书总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="《JavaScript语言精粹》总结">
 <meta property="og:url" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/index.html">
 <meta property="og:site_name" content="Klaus&#39; blog">
-<meta property="og:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 Function.prototype.method = function (name, func) {     this.p">
+<meta property="og:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 1234Function.prototype.method = function (name, func) &amp;#123;	t">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png">
-<meta property="og:updated_time" content="2017-04-29T14:58:53.022Z">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png">
+<meta property="og:updated_time" content="2017-07-22T20:04:25.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript语言精粹》总结">
-<meta name="twitter:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 Function.prototype.method = function (name, func) {     this.p">
-<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
+<meta name="twitter:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 1234Function.prototype.method = function (name, func) &amp;#123;	t">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
 
 
 
@@ -373,17 +373,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/29/《JavaScript语言精粹》总结/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/04/29/《JavaScript语言精粹》总结/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -407,43 +396,27 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。</p>
 <h1 id="第一章-精华"><a href="#第一章-精华" class="headerlink" title="第一章 精华"></a>第一章 精华</h1><h2 id="为什么要使用JavaScript"><a href="#为什么要使用JavaScript" class="headerlink" title="为什么要使用JavaScript"></a>为什么要使用JavaScript</h2><h2 id="分析JavaScript"><a href="#分析JavaScript" class="headerlink" title="分析JavaScript"></a>分析JavaScript</h2><h2 id="一个简单的试验场"><a href="#一个简单的试验场" class="headerlink" title="一个简单的试验场"></a>一个简单的试验场</h2><p>本书贯彻始终会使用一个method方法去定义新方法。</p>
-<pre><code>Function.prototype.method = function (name, func) {
-    this.prototype[name] = func;
-    return this;
-};
+<pre><code><figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span> (<span class="params">name, func</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.prototype[name] = func;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
 </code></pre><h1 id="第二章-语法"><a href="#第二章-语法" class="headerlink" title="第二章 语法"></a>第二章 语法</h1><h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><p>建议使用<code>//</code>来注释，避免使用<code>/* */</code>，因为有的正则表达式可能会造成问题，例如：</p>
-<pre><code>/* 
-    var rm_a = /a*/.match(s);
-*/
-</code></pre><h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>不允许用保留字来命名变量或者参数。</p>
-<p><img src="《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png" alt=""></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* </span></div><div class="line">    var rm_a = /a*/.match(s);</div><div class="line">*<span class="regexp">/</span></div></pre></td></tr></table></figure>
+<h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>不允许用保留字来命名变量或者参数。</p>
+<p><img src="/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png" alt=""></p>
 <h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>JavaScript只有一个数字类型，内部表示为64位浮点数。</p>
 <p>NaN不等于任何值（包括它自己），可以用函数isNaN(number)检测。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串一旦被创建，就永远无法改变它，后续的修改只是创建了新的字符串而不是在其本身进行修改。</p>
 <p>这也就是从前讲优化的时候有一个点是，对于字符串的相加操作建议用数组方法替代，就像这样：</p>
-<pre><code>var mychar = &apos;a&apos; + &apos;b&apos; + &apos;c&apos;;
-
-//建议替换为数组操作
-var myArr = [];
-myArr.push(&apos;a&apos;);
-myArr.push(&apos;b&apos;);
-myArr.push(&apos;c&apos;);
-var myChar = myArr.join(&apos;&apos;);
-</code></pre><p>不过好像是由于浏览器和引擎的内部优化，一般不会造成太大影响，所以现在基本不怎么提了，也不怎么用吧好像。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> mychar = <span class="string">'a'</span> + <span class="string">'b'</span> + <span class="string">'c'</span>;</div><div class="line"></div><div class="line"><span class="comment">//建议替换为数组操作</span></div><div class="line"><span class="keyword">var</span> myArr = [];</div><div class="line">myArr.push(<span class="string">'a'</span>);</div><div class="line">myArr.push(<span class="string">'b'</span>);</div><div class="line">myArr.push(<span class="string">'c'</span>);</div><div class="line"><span class="keyword">var</span> myChar = myArr.join(<span class="string">''</span>);</div></pre></td></tr></table></figure>
+<p>不过好像是由于浏览器和引擎的内部优化，一般不会造成太大影响，所以现在基本不怎么提了，也不怎么用吧好像。</p>
 <h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p>可以通过条件语句（if和switch）、循环语句（while、for和do）、强制跳转语句（break、return和throw）和函数调用来改变执行序列。</p>
 <p>for in语句会遍历对象的所有可枚举属性（包括继承的），所以如果只想要遍历属性自己的属性，可加一步判断。</p>
-<pre><code>for (myVar in obj) {
-    if (obj.hasOwnProperty(myVar)) {
-        ...
-    }
-}
-</code></pre><p>do和while的区别就是do至少会执行一次循环体里面的代码。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span> (myVar <span class="keyword">in</span> obj) &#123;</div><div class="line">	<span class="keyword">if</span> (obj.hasOwnProperty(myVar)) &#123;</div><div class="line">		...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>do和while的区别就是do至少会执行一次循环体里面的代码。</p>
 <p>try catch语句会捕获try代码块中的异常，并自动跳转到catch代码块执行其中的代码。</p>
 <p>throw语句就是认为抛出一个异常，如果throw语句在函数中，则函数调用被放弃。</p>
 <p>break语句可以跳出循环，continue语句可以跳过循环体中后续代码，直接执行下次循环。</p>
 <p>可以给循环加label，然后break label跳出特定循环，在复杂的循环中可能会用到。</p>
 <p>各种运算的优先级：</p>
-<p><img src="《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png" alt=""></p>
+<p><img src="/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png" alt=""></p>
 <h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h1 id="第三章-对象"><a href="#第三章-对象" class="headerlink" title="第三章 对象"></a>第三章 对象</h1><h2 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h2><p>对象字面量提供了一种非常方便地创建新对象值的表示法。</p>
 <p>对象的属性名可以是包括空字符串在内的任意字符串，一般不用引号括住，但是如果是保留字或者非法的标识符（例如first-name是非法的，first_name就是合法的），就必须用引号括住。</p>
 <p>对象可以嵌套。</p>
@@ -568,10 +541,6 @@ var myChar = myArr.join(&apos;&apos;);
         </noscript>
       </div>
     
-    <!-- UY BEGIN -->
-    <div id="uyan_frame"></div>
-    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2139671"></script>
-    <!-- UY END -->
   </div>
 
     
@@ -839,8 +808,6 @@ var myChar = myArr.join(&apos;&apos;);
 
   
 
-    
-      <script id="dsq-count-scr" src="https://Klaus.disqus.com/count.js" async></script>
     
 
     

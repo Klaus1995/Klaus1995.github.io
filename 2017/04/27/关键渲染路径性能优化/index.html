@@ -119,16 +119,16 @@
 <meta property="og:site_name" content="Klaus&#39; blog">
 <meta property="og:description" content="前言本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击视频播放地址。 浏览器的渲染原理基本渲染过程 由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。  首先浏览器会解析HTML文档，生成相应的DOM树。 然后浏览器会解析文档的样式，生成CSSOM。 在以上两步中穿插着js的代码解析。 然后浏览器会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化1.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化2.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化3.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化4.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化5.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化2.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化3.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化4.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化5.png">
 <meta property="og:updated_time" content="2017-04-27T16:07:09.894Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关键渲染路径性能优化">
 <meta name="twitter:description" content="前言本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击视频播放地址。 浏览器的渲染原理基本渲染过程 由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。  首先浏览器会解析HTML文档，生成相应的DOM树。 然后浏览器会解析文档的样式，生成CSSOM。 在以上两步中穿插着js的代码解析。 然后浏览器会">
-<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化1.png">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化1.png">
 
 
 
@@ -376,17 +376,6 @@
 
           
             
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2017/04/27/关键渲染路径性能优化/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count disqus-comment-count"
-                        data-disqus-identifier="2017/04/27/关键渲染路径性能优化/" itemprop="commentCount"></span>
-                </a>
-              </span>
-            
           
 
           
@@ -409,7 +398,7 @@
 
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击<a href="https://t.75team.com/video/play?id=65_260_2017032010370819aadb47-c79c-4d63-afd4-df0b42eaee48" target="_blank" rel="external">视频播放地址</a>。</p>
-<h1 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h1><h2 id="基本渲染过程"><a href="#基本渲染过程" class="headerlink" title="基本渲染过程"></a>基本渲染过程</h2><p><img src="关键渲染路径性能优化/关键渲染路径性能优化1.png" alt=""></p>
+<h1 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h1><h2 id="基本渲染过程"><a href="#基本渲染过程" class="headerlink" title="基本渲染过程"></a>基本渲染过程</h2><p><img src="/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化1.png" alt=""></p>
 <p>由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。</p>
 <ol>
 <li>首先浏览器会解析HTML文档，生成相应的DOM树。</li>
@@ -419,7 +408,7 @@
 <li>再然后，浏览器会根据生成的RenderTree进行相应的计算分给每个元素的空间大小以及相应的位置，进行Layout。</li>
 <li>最后，会具体渲染每个元素的细节部分，也就是Paint。</li>
 </ol>
-<p><img src="关键渲染路径性能优化/关键渲染路径性能优化2.png" alt=""></p>
+<p><img src="/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化2.png" alt=""></p>
 <p>这是我加载百度首页时截的部分图，可以简单看出渲染过程。</p>
 <h2 id="Parse-HTML-to-DOM"><a href="#Parse-HTML-to-DOM" class="headerlink" title="Parse HTML to DOM"></a>Parse HTML to DOM</h2><p>这个过程就是将请求得到的HTML文档解析生成DOM树。</p>
 <p>注意：</p>
@@ -475,7 +464,7 @@
 <li>我们可以针对不同的媒体环境拆分CSS文件，并为link标签添加媒体查询，避免为了加载非关键CSS资源，而阻塞了初次渲染</li>
 </ul>
 <p>各种加载CSS的方法：</p>
-<p><img src="关键渲染路径性能优化/关键渲染路径性能优化3.png" alt=""></p>
+<p><img src="/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化3.png" alt=""></p>
 <p>但是请注意，虽然有的方法不会阻塞初次渲染，但是会在后来加载完CSS文件以后使页面产生一个巨大的抖动（渲染样式）。</p>
 <h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><p>在HTML中加载JS代码会阻塞初次渲染。</p>
 <p>注意：</p>
@@ -487,9 +476,9 @@
 <p>同时，CSS也会阻塞JS。这是因为JavaScript可能会读取和修改CSSOM，因此要等到CSSOM构建完成之后，JS才会执行。</p>
 <p>两个并列的外部引用的JS文件会同时进行加载（不是解析），这是因为JS虽然会阻塞HTML parser，停止DOM的构建工作，但是浏览器会去识别脚本后面的资源，并提前加载。</p>
 <p>因此，可以通过把<code>&lt;script&gt;&lt;/script&gt;</code>标签放到文档最后，或者用defer和async属性来解决JS加载对HTML parser的阻塞。defer和async属性有差异，具体看下图：</p>
-<p><img src="关键渲染路径性能优化/关键渲染路径性能优化4.png" alt=""></p>
+<p><img src="/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化4.png" alt=""></p>
 <p>各种加载JS的方法：</p>
-<p><img src="关键渲染路径性能优化/关键渲染路径性能优化5.png" alt=""></p>
+<p><img src="/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化5.png" alt=""></p>
 <h2 id="font"><a href="#font" class="headerlink" title="font"></a>font</h2><p>在加载完HTML文档后，浏览器会等待字体文件加载完成后，才会显示具体内容（应用了该字体的元素）。</p>
 <p>通过preload异步加载CSS字体文件，就不会阻塞初次渲染。</p>
 <h2 id="img"><a href="#img" class="headerlink" title="img"></a>img</h2><p>图片文件并不会阻塞初次渲染。</p>
@@ -596,10 +585,6 @@
         </noscript>
       </div>
     
-    <!-- UY BEGIN -->
-    <div id="uyan_frame"></div>
-    <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid=2139671"></script>
-    <!-- UY END -->
   </div>
 
     
@@ -867,8 +852,6 @@
 
   
 
-    
-      <script id="dsq-count-scr" src="https://Klaus.disqus.com/count.js" async></script>
     
 
     
