@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,继承," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言本篇文章继续讲js原型和继承，参考高程三第六章。  原型链先上一段代码（继承）： function SuperType(){     this.property = &amp;apos;super&amp;apos;; }  SuperType.prototype.getSuperValue = function(){     return this.property; }  function SubType">
+<meta name="keywords" content="Javascript,继承">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS继承">
+<meta property="og:url" content="http://www.klaus1995.com/2017/03/08/JS继承/index.html">
+<meta property="og:site_name" content="Klaus&#39; blog">
+<meta property="og:description" content="前言本篇文章继续讲js原型和继承，参考高程三第六章。  原型链先上一段代码（继承）： function SuperType(){     this.property = &amp;apos;super&amp;apos;; }  SuperType.prototype.getSuperValue = function(){     return this.property; }  function SubType">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承/JS继承1.png">
+<meta property="og:updated_time" content="2017-03-09T06:17:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS继承">
+<meta name="twitter:description" content="前言本篇文章继续讲js原型和继承，参考高程三第六章。  原型链先上一段代码（继承）： function SuperType(){     this.property = &amp;apos;super&amp;apos;; }  SuperType.prototype.getSuperValue = function(){     return this.property; }  function SubType">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承/JS继承1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.klaus1995.com/2017/03/08/JS继承/"/>
+
+
+
+
+
+  <title>JS继承 | Klaus' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6f1ec5fa4063dc5e7ee222caf0541902";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Klaus' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.klaus1995.com/2017/03/08/JS继承/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Klaus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Klaus' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS继承</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-08T22:00:28+08:00">
+                2017-03-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/08/JS继承/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/08/JS继承/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本篇文章继续讲js原型和继承，参考高程三第六章。</p>
+<hr>
+<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><p>先上一段代码（继承）：</p>
+<pre><code>function SuperType(){
+    this.property = &apos;super&apos;;
+}
+
+SuperType.prototype.getSuperValue = function(){
+    return this.property;
+}
+
+function SubType(){
+    this.subproperty = &apos;sub&apos;;
+}
+
+//继承了SuperType
+SubType.prototype = new SuperType();
+
+SubType.prototype.getSubValue = function(){
+    return this.subproperty;
+}
+
+var instance = new SubType();
+alert(instance.getSuperValue());  //super
+alert(instance.getSubValue());  //sub
+
+//检测实例对象的类型
+alert(instance instanceof Object);  //true
+alert(instance instanceof SuperType);  //true
+alert(instance instanceof SubType);  //true
+</code></pre><p>其中的<code>SubType.prototype = new SuperType();</code>可以这么理解：sub实例的爸爸（原型）= super的实例，所以sub实例的爷爷 = super实例的爸爸（原型），他们的继承关系就是<code>SuperType.prototype==&gt;SubType.prototype(new SuperType())==&gt;new SubType()</code>。</p>
+<p>所以它们之间的指针关系如图：</p>
+<p><img src="JS继承/JS继承1.png" alt=""></p>
+<p><strong style="color: red">注意：</strong></p>
+<ul>
+<li>想要修改SubType的原型的话，要在<code>SubType.prototype = new SuperType();</code>语句之后写（之前写的话，这一条赋值语句会修改SubType.prototype的指针，相当于之前写的都没用了）。</li>
+<li>修改SubType.prototype的时候不能用字面量定义，因为那样会重写SubType.prototype，也就相当于SubType和SuperType毫无关系了。</li>
+<li>调用instance实例的属性或者方法的时候，首先先查找instance实例（SubType），然后向上查找SubType.prototype，然后继续向上查找SuperType.prototype和SuperType。</li>
+</ul>
+<p>而这种原型链构造新对象的方法也有其缺点：</p>
+<ul>
+<li>无法给SuperType构造函数传递参数</li>
+<li>SuperType和SuperType.prototype的所有属性和方法都被SubType的实例共享，如果有一些私有属性或者说引用类型的值作为属性就很蛋疼了（引用类型值因为是指针调用，所以一个实例修改，所有实例都会被修改）</li>
+</ul>
+<p>为了解决这些问题，于是便有了借用构造函数模式。</p>
+<hr>
+<h1 id="借用构造函数"><a href="#借用构造函数" class="headerlink" title="借用构造函数"></a>借用构造函数</h1><p>这种技术的思路非常简单，就是在子类型的构造函数内调用了超类型的构造函数，代码如下：</p>
+<pre><code>function SuperType(name){
+    this.name = name;
+}
+
+function SubType(name,age){
+    SuperType.call(this,name)
+    this.age = age
+}
+
+var instance = new SubType(&apos;Klaus&apos;,22);
+alert(instance.name);  //Klaus
+alert(instance.age);  //22
+
+//检测类型
+alert(instance instanceof Object);  //true
+alert(instance instanceof SuperType);  //false
+alert(instance instanceof SubType);  //true
+</code></pre><p>这种模式可以给超类型构造函数传递参数，超类型属性也全都是实例私有的，但是这种模式缺点也很明显：</p>
+<ul>
+<li>新建实例无法调用SuperType.prototype的属性和方法</li>
+<li>因此，超类型中需要共享的方法必须放在超类型构造函数中而不能放在其原型中，所以函数的复用无从谈起</li>
+<li>因为子类型和超类型没有继承关系，只是简单的调用，所以实例并不属于超类型的对象</li>
+</ul>
+<hr>
+<h1 id="组合继承"><a href="#组合继承" class="headerlink" title="组合继承"></a>组合继承</h1><p>这种模式结合了原型链模式和借用构造函数模式的优点，代码如下：</p>
+<pre><code>function SuperType(name){
+    this.name = name;
+    this.color = [&apos;red&apos;,&apos;green&apos;];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+}
+
+function SubType(name,age){
+    SuperType.call(this,name);
+    this.age = age;
+}
+
+//SubType继承了SuperType
+SubType.prototype = new SuperType();
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+}
+
+var instance1 = new SubType(&apos;Klaus&apos;,22);
+instance1.sayName();  //Klaus
+instance1.sayAge();  //22
+instance1.color.push(&apos;blue&apos;);
+alert(instance1.color);  //red,green,blue
+
+var instance2 = new SubType(&apos;nico&apos;,25);
+instance2.sayName();  //nico
+instance2.sayAge();  //25
+alert(instance2.color);  //red,green
+
+//检测实例对象的类型
+alert(instance1 instanceof Object);  //true
+alert(instance1 instanceof SuperType);  //true
+alert(instance1 instanceof SubType);  //true
+alert(Object.prototype.isPrototypeOf(instance1));  //true
+alert(SuperType.prototype.isPrototypeOf(instance1));  //true
+alert(SubType.prototype.isPrototypeOf(instance1));  //true
+</code></pre><hr>
+<h1 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h1><p>原型式继承方式是道格拉斯提出来的一种实现继承的方法，它的代码是这样的：</p>
+<pre><code>function object(o){
+    function F(){}
+    F.prototype = o;
+    return new F();
+}
+</code></pre><p>这一段代码的可以这么理解，把F看做上面所讲代码的子类型，o看做超类型，子类型继承了超类型，函数最后返回了F的实例。</p>
+<p>有了这段代码，我们就可以不定义子类型的构造函数（其实在object函数中定义了，只不过执行完被垃圾回收了而已）就直接得到继承。</p>
+<p>后来，这种原型式继承被ECMAScript规范化了，并定义成了<code>Object.create()</code>方法，这个方法接受两个参数，第一个是被继承的对象o（可以理解为超类型构建函数），第二个是新建对象的私有属性（可以理解为子类型的构建函数），第二个参数的格式类似于<code>Object.defineProperties()</code>方法需要传入的参数格式。</p>
+<p>使用形式类似于<code>var sub = Object.create(super)</code>，但是别忘了继承的属性都是共享的。</p>
+<hr>
+<h1 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h1><p>寄生式继承也是道格拉斯提出来了，代码如下：</p>
+<pre><code>function createAnother(original){
+    var clone = object(original);  //原型式继承创建对象
+    clone.sayHi = function(){       //给新创建的对象添加私有属性和方法
+        alert(&apos;Hi!&apos;);
+    };
+    return clone;
+}
+</code></pre><p>现在这种方法完全可以用<code>Object.defineProperties()</code>方法替代：</p>
+<pre><code>var clone = Object.create(original,{
+    sayHi : {
+        value : function(){
+            alert(&apos;Hi!&apos;);
+        }
+    }
+})
+
+clone.sayHi();  //hi!
+</code></pre><p>这种方法和构造函数一样，会因为函数不能复用而使效率降低。</p>
+<hr>
+<h1 id="寄生组合式继承"><a href="#寄生组合式继承" class="headerlink" title="寄生组合式继承"></a>寄生组合式继承</h1><p>前面介绍的组合继承模式是比较完美的，但是它仍然有一点不足，因为它会两次调用SuperType()，看代码：</p>
+<pre><code>function SuperType(name){
+    this.name = name;
+    this.color = [&apos;red&apos;,&apos;green&apos;];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+}
+
+function SubType(name,age){
+    SuperType.call(this,name);  //第二次调用
+    this.age = age;
+}
+
+//SubType继承了SuperType
+SubType.prototype = new SuperType();  //第一次调用
+SubType.prototype.constructor = SubType;
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+}
+</code></pre><p>第一次调用会使子类型的原型带有超类型构造函数中定义的属性和方法，第二次调用会使子类型实例带有超类型构造函数中定义的属性和方法，这就造成了重复，两次定义了相同的属性，造成了浪费。</p>
+<p>寄生组合式继承就完美解决了这个问题：</p>
+<pre><code>function object(o){
+    function F(){}
+    F.prototype = o;  
+    return new F(); 
+}
+
+function inheritPrototype(subType,superType){
+    var prototype = object(superType.prototype);
+    prototype.constructor = subType;
+    subType.prototype = prototype;
+}
+
+function SuperType(name){
+    this.name = name;
+    this.color = [&apos;red&apos;,&apos;green&apos;];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+}
+
+function SubType(name,age){
+    SuperType.call(this,name);
+    this.age = age;
+}
+
+//SubType继承了SuperType
+inheritPrototype(SubType,SuperType);
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+}
+
+var instance1 = new SubType(&apos;Klaus&apos;,22);
+instance1.sayName();  //Klaus
+instance1.sayAge();  //22
+instance1.color.push(&apos;blue&apos;);
+alert(instance1.color);  //red,green,blue
+
+var instance2 = new SubType(&apos;nico&apos;,25);
+instance2.sayName();  //nico
+instance2.sayAge();  //25
+alert(instance2.color);  //red,green
+
+//检测实例对象的类型
+alert(instance1 instanceof Object);  //true
+alert(instance1 instanceof SuperType);  //true
+alert(instance1 instanceof SubType);  //true
+alert(Object.prototype.isPrototypeOf(instance1));  //true
+alert(SuperType.prototype.isPrototypeOf(instance1));  //true
+alert(SubType.prototype.isPrototypeOf(instance1));  //true
+
+//检测子类型原型有没有继承超类型构造函数中的name和color属性
+alert(instance1.hasOwnProperty(&apos;name&apos;));  //true
+alert(SubType.prototype.hasOwnProperty(&apos;name&apos;));  //false
+alert(instance1.hasOwnProperty(&apos;color&apos;));  //true
+alert(SubType.prototype.hasOwnProperty(&apos;color&apos;));  //false
+</code></pre><p>现在我们来理一下他们之间的关系：</p>
+<ul>
+<li>F的原型=o</li>
+<li>object(o)返回F的实例，也就是object(o)=F的实例</li>
+<li>prototype=object(superType.prototype)，也就是说prototype=F的实例，F的原型是superType.prototype</li>
+<li>subType的原型=prototype</li>
+</ul>
+<p><strong style="color: red">把它们连接起来就是：</strong></p>
+<ul>
+<li>subType的原型 = prototype = object(superType.prototype) = F的实例</li>
+<li>F的原型 = o = superType.prototype</li>
+</ul>
+<p><strong style="color: red">这两个个等式只要看开头和结尾就可以了。第一个等式显示要继承的子类型的原型为一个构造函数F（中间量）的实例，这样，子类型的原型就完美继承了F的构造函数和原型所有的属性和方法，和我们上面讲的原型链中的<code>SubType.prototype = new SuperType();</code>语句是一样的作用。</strong></p>
+<p><strong style="color: red">下面的等式，F的原型是superType的原型，即超类型的原型，使F继承到了超类型原型里的方法和属性，而没有继承到超类型构造函数里的属性和方法。</strong></p>
+<p>总结下来就是：subType的原型继承了F构造函数和原型中所有的属性和方法，F的原型继承了superType的原型而没有继承到superType的构造函数，而F的构造函数在object函数中被定义为没有任何的属性和方法。</p>
+<p>废了这么大劲，与上面讲的组合继承有什么不同呢？</p>
+<p>他们的最大不同就在于F这个中间量，因为有了这个中间量，使SubType的原型不需要继承SuperType的构造函数中的属性和方法，只继承到了SuperType原型中的属性和方法，所以解决了那个前面提到的“两次定义了相同的属性”的问题。</p>
+<hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>经过这一系列的演变，最后得出的结论是，最好的继承方式就是寄生组合继承。</p>
+<p>当然，从原型式继承被ECMAScript规范化了，并定义成了<code>Object.create()</code>方法后，寄生组合继承还可以被简写：</p>
+<pre><code>function inheritPrototype(subType,superType){
+    var prototype = Object.create(superType.prototype);  //用Object.create()方法替代了原来的objec()方法
+    prototype.constructor = subType;
+    subType.prototype = prototype;
+}
+
+function SuperType(name){
+    this.name = name;
+    this.color = [&apos;red&apos;,&apos;green&apos;];
+}
+
+SuperType.prototype.sayName = function(){
+    alert(this.name);
+}
+
+function SubType(name,age){
+    SuperType.call(this,name);
+    this.age = age;
+}
+
+//SubType继承了SuperType
+inheritPrototype(SubType,SuperType);
+
+SubType.prototype.sayAge = function(){
+    alert(this.age);
+}
+
+var instance1 = new SubType(&apos;Klaus&apos;,22);
+instance1.sayName();  //Klaus
+instance1.sayAge();  //22
+instance1.color.push(&apos;blue&apos;);
+alert(instance1.color);  //red,green,blue
+
+var instance2 = new SubType(&apos;nico&apos;,25);
+instance2.sayName();  //nico
+instance2.sayAge();  //25
+alert(instance2.color);  //red,green
+
+//检测实例对象的类型
+alert(instance1 instanceof Object);  //true
+alert(instance1 instanceof SuperType);  //true
+alert(instance1 instanceof SubType);  //true
+alert(Object.prototype.isPrototypeOf(instance1));  //true
+alert(SuperType.prototype.isPrototypeOf(instance1));  //true
+alert(SubType.prototype.isPrototypeOf(instance1));  //true
+
+//如果需要重新追加新的共享方法和属性，可以向SuperType.prototype或者SubType.prototype追加，追加的属性方法可以被所有的子类型实例共享，非常方便
+SuperType.prototype.sayHi = function(){
+    alert(&apos;Hi!&apos;);  
+}
+
+instance1.sayHi();  //Hi!
+
+//检测子类型原型有没有继承超类型构造函数中的name和color属性
+alert(instance1.hasOwnProperty(&apos;name&apos;));  //true
+alert(SubType.prototype.hasOwnProperty(&apos;name&apos;));  //false
+alert(instance1.hasOwnProperty(&apos;color&apos;));  //true
+alert(SubType.prototype.hasOwnProperty(&apos;color&apos;));  //false
+</code></pre><p>这篇文章可能讲的不是太清楚，因为太复杂了，很难讲清楚，需要自己慢慢思考领悟，经过这么多绕来绕去的继承，最后肯定能领会到继承的真谛。</p>
+<p>如果哪里有错误的话请与我联系，我会及时更正，联系方式在右边个人介绍中，谢谢观看。</p>
+<hr>
+<h1 id="2017-3-9补充"><a href="#2017-3-9补充" class="headerlink" title="2017.3.9补充"></a>2017.3.9补充</h1><p>在群里讨论了原型与继承的问题，有一个小伙伴画了一张图能够更好地理解原型链的结构，在这里贴上地址：<a href="https://www.processon.com/view/link/586c6f75e4b067ce853bb863" target="_blank" rel="external">https://www.processon.com/view/link/586c6f75e4b067ce853bb863</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/继承/" rel="tag"># 继承</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/07/关于编程思想的一点感悟/" rel="next" title="关于编程思想的一点感悟">
+                <i class="fa fa-chevron-left"></i> 关于编程思想的一点感悟
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/21/常用代码/" rel="prev" title="常用代码">
+                常用代码 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Klaus" />
+          <p class="site-author-name" itemprop="name">Klaus</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep learning, keep running.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Klaus1995" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/wang-xiao-bai-28-69/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型链"><span class="nav-number">2.</span> <span class="nav-text">原型链</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#借用构造函数"><span class="nav-number">3.</span> <span class="nav-text">借用构造函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合继承"><span class="nav-number">4.</span> <span class="nav-text">组合继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型式继承"><span class="nav-number">5.</span> <span class="nav-text">原型式继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寄生式继承"><span class="nav-number">6.</span> <span class="nav-text">寄生式继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#寄生组合式继承"><span class="nav-number">7.</span> <span class="nav-text">寄生组合式继承</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2017-3-9补充"><span class="nav-number">9.</span> <span class="nav-text">2017.3.9补充</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Klaus</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Klaus.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://www.klaus1995.com/2017/03/08/JS继承/';
+          this.page.identifier = '2017/03/08/JS继承/';
+          this.page.title = 'JS继承';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Klaus.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

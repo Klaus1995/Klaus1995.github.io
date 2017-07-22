@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Javascript,原型," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.1" />
+
+
+
+
+
+
+<meta name="description" content="前言本文主要总结了js面向对象编程的发展过程，参考高程三第六章。  工厂模式最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。 function createPerson(name,age,job){     var o =new Object();     o.name = name;     o.age = age;     o.job = job;">
+<meta name="keywords" content="Javascript,原型">
+<meta property="og:type" content="article">
+<meta property="og:title" content="JS原型">
+<meta property="og:url" content="http://www.klaus1995.com/2017/03/06/JS原型/index.html">
+<meta property="og:site_name" content="Klaus&#39; blog">
+<meta property="og:description" content="前言本文主要总结了js面向对象编程的发展过程，参考高程三第六章。  工厂模式最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。 function createPerson(name,age,job){     var o =new Object();     o.name = name;     o.age = age;     o.job = job;">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型/JS原型1.png">
+<meta property="og:updated_time" content="2017-03-08T15:00:14.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="JS原型">
+<meta name="twitter:description" content="前言本文主要总结了js面向对象编程的发展过程，参考高程三第六章。  工厂模式最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。 function createPerson(name,age,job){     var o =new Object();     o.name = name;     o.age = age;     o.job = job;">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型/JS原型1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    sidebar: {"position":"right","display":"post","offset":12,"offset_float":0,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.klaus1995.com/2017/03/06/JS原型/"/>
+
+
+
+
+
+  <title>JS原型 | Klaus' blog</title>
+  
+
+
+
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6f1ec5fa4063dc5e7ee222caf0541902";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Klaus' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+    <link itemprop="mainEntityOfPage" href="http://www.klaus1995.com/2017/03/06/JS原型/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Klaus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Klaus' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">JS原型</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-03-06T20:49:59+08:00">
+                2017-03-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Javascript/" itemprop="url" rel="index">
+                    <span itemprop="name">Javascript</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/03/06/JS原型/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/03/06/JS原型/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要总结了js面向对象编程的发展过程，参考高程三第六章。</p>
+<hr>
+<h1 id="工厂模式"><a href="#工厂模式" class="headerlink" title="工厂模式"></a>工厂模式</h1><p>最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。</p>
+<pre><code>function createPerson(name,age,job){
+    var o =new Object();
+    o.name = name;
+    o.age = age;
+    o.job = job;
+    o.sayName = function(){
+        alert(this.name);
+    };
+    return o;
+}
+
+var person1 = createPerson(&apos;Nicholas&apos;,29,&apos;Software Engineer&apos;);
+var person2 = createPerson(&apos;Greg&apos;,27,&apos;Doctor&apos;); 
+</code></pre><p>工厂模式虽然解决了重复创建固定属性的对象的问题，<strong style="color: red">但是没办法识别创建出的对象的类型</strong>。</p>
+<hr>
+<h1 id="构造函数模式"><a href="#构造函数模式" class="headerlink" title="构造函数模式"></a>构造函数模式</h1><p>js支持创建自定义的构造函数，从而定义自定义对象类型的属性和方法。</p>
+<pre><code>function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.sayName = function(){
+        alert(this.name);
+    };
+}
+
+var person1 = new Person(&apos;Nicholas&apos;,29,&apos;Software Engineer&apos;);
+var person2 = new Person(&apos;Greg&apos;,27,&apos;Doctor&apos;); 
+</code></pre><p>其中要创建Person的新实例，必须使用new操作符。用这种方式调用构造函数实际上会经历以下四个步骤：</p>
+<ul>
+<li>（1）创建一个新对象；</li>
+<li>（2）将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；</li>
+<li>（3）执行构造函数中的代码（为这个对象添加属性）；</li>
+<li>（4）返回新对象。</li>
+</ul>
+<p>这种创建对象的方式可以检测对象的类型：</p>
+<pre><code>alert(person1 instanceof Object);   //true
+alert(person1 instanceof Person);   //true
+alert(person2 instanceof Object);   //true
+alert(person2 instanceof Person);   //true
+</code></pre><p><strong style="color: red">但是这种模式创建的对象，每一个都具有sayName的方法，占用内存，无法实现函数的复用。</strong></p>
+<hr>
+<h1 id="原型模式"><a href="#原型模式" class="headerlink" title="原型模式"></a>原型模式</h1><p>我们创建的每一个函数都有一个prototype（原型）属性，这个属性是一个指针，指向一个对象。这个对象就是这个构造函数的原型对象，这个对象包含了所有实例所共享的属性和方法。</p>
+<pre><code>function Person(){
+}
+
+Person.prototype.name = &apos;Nicholas&apos;;
+Person.prototype.age = 29;
+Person.prototype.job = &apos;Software Engineer&apos;;
+Person.prototype.sayName = function(){
+    alert(this.name);
+};
+
+var person1 = new Person();
+person1.sayName();   //&apos;Nicholas&apos;
+
+var person2 = new Person();
+person2.sayName();   //&apos;Nicholas&apos;
+
+alert(person1.sayName == person2.sayName);  //true
+</code></pre><p>这段代码中，person1和person2都调用了构造函数Person，所以它们有相同的属性和方法。在这里，Person叫做构造函数，Person.prototype叫做原型，person1和person2叫做实例。</p>
+<p>可以用isPrototypeOf方法检测实例的原型：</p>
+<pre><code>alert(Person.prototype.isPrototypeOf(person1));  //true
+
+alert(Person.prototype.isPrototypeOf(person2));  //true
+</code></pre><p>有一种更简便更直观的写法：</p>
+<pre><code>function Person(){
+}
+
+Person.prototype = {
+    name : &apos;Nicholas&apos;,
+    age : 29,
+    job : &apos;Software Engineer&apos;,
+    sayName : function(){
+        alert(this.name);
+    }
+};
+
+Object.defineProperty(Person.prototype,&apos;constructor&apos;,{
+    enumerable : false,
+    value : Person
+})
+</code></pre><p><strong style="color: red">需要注意的是，必须指定constructor为Person，不然会指向Object。</strong></p>
+<p><strong style="color: red">同时，由于所创建的实例共享了所有属性与方法，这种共享性对方法和共有属性来说是适用的，但对于某些私有属性（尤其是引用类型值的属性）是不适用的，所以原型模式的缺点也显而易见：无法设置实例的私有属性。</strong></p>
+<hr>
+<h1 id="组合使用构造函数模式和原型模式"><a href="#组合使用构造函数模式和原型模式" class="headerlink" title="组合使用构造函数模式和原型模式"></a>组合使用构造函数模式和原型模式</h1><p>这种模式结合了两种模式的优点，代码如下：</p>
+<pre><code>function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = [&apos;shelby&apos;,&apos;court&apos;];
+}
+
+Person.prototype = {
+    sayName : function(){
+        alert(this.name);
+    }
+};
+
+var person1 = new Person(&apos;Nicholas&apos;,29,&apos;Software Engineer&apos;);
+var person2 = new Person(&apos;Greg&apos;,27,&apos;Doctor&apos;); 
+
+person1.friends.push(&apos;Van&apos;);
+alert(person1.friends);  //&apos;shelby&apos;,&apos;court&apos;,&apos;Van&apos;
+alert(person2.friends);  //&apos;shelby&apos;,&apos;court&apos;
+alert(person1.friends == person2.friends);  //false
+alert(person1.sayName == person2.sayName);  //true
+</code></pre><hr>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>首先讲讲new操作符都做了些什么（使用字面量定义对象的时候效果相同）：</p>
+<ul>
+<li>（1）创建一个新对象；</li>
+<li>（2）将构造函数的作用域赋给新对象（因此this就指向了这个新对象）；</li>
+<li>（3）执行构造函数中的代码（为这个对象添加属性）；</li>
+<li>（4）返回新对象。</li>
+</ul>
+<p>这就相当于以下代码：</p>
+<pre><code>var person1 = new Object();
+function Person(){
+    this.name = &apos;Klaus&apos;; 
+}
+
+Person.call(person1);
+
+alert(person1.name);  //&apos;Klaus&apos;
+</code></pre><p>然后，再说说原型里面的各种指针问题：</p>
+<ul>
+<li>构造函数Person   </li>
+<li>原型Person.prototype   </li>
+<li>实例person1</li>
+<li>Person.prototype.constructor  ==&gt;  Person</li>
+<li>person1的[[prototype]]  ==&gt;  Person.prototype  (由于这个属性是隐藏的不可访问，可以用Person.prototype.isPrototypeOf(person1)为true，或者person1.__proto__  ==&gt;  Person.prototype表示)</li>
+<li>由于实例继承了原型的属性，所以person1.constructor  ==&gt;  Person</li>
+</ul>
+<p><img src="JS原型/JS原型1.png" alt=""></p>
+<p>最后，说说最终组合使用构造函数模式和原型模式创建对象的优点：</p>
+<ul>
+<li>能够检测对象的类型；</li>
+<li>能够传递参数，给每个对象设置私有的属性（尤其是引用对象类型的值）；</li>
+<li>能够在原型中定义共享的属性和方法，节省了内存。</li>
+</ul>
+<p>以下代码作为本篇文章的总结，基本可以说明所有问题：</p>
+<pre><code>//可以给构造函数传递参数，给每个对象设置私有的属性（尤其是引用对象类型的值）
+function Person(name,age,job){
+    this.name = name;
+    this.age = age;
+    this.job = job;
+    this.friends = [&apos;shelby&apos;,&apos;court&apos;];
+}
+
+//能够在原型中定义共享的属性和方法，节省了内存
+//注意必须指定constructor属性，指向构造函数Person，不然会默认指向构造函数Object
+Person.prototype = {
+    constructor : Person,
+    sayName : function(){
+        alert(this.name);
+    }
+};
+
+//创建新实例
+var person1 = new Person(&apos;Nicholas&apos;,29,&apos;Software Engineer&apos;);
+var person2 = new Person(&apos;Greg&apos;,27,&apos;Doctor&apos;); 
+
+//检测对象的类型
+alert(person1 instanceof Person);  //true
+alert(person2 instanceof Person);  //true
+alert(person1 instanceof Object);  //true
+alert(person2 instanceof Object);  //true
+
+//检测原型
+alert(Person.prototype.isPrototypeOf(person1));  //true
+alert(Person.prototype.isPrototypeOf(person2));  //true
+
+//检测constructor属性
+alert(Person.prototype.constructor);  //function Person(){}
+
+//注释掉constructor属性的那行代码后
+alert(Person.prototype.constructor);  //function Object(){}
+
+//对实例的私有属性进行操作，不会影响其他实例的属性
+person1.friends.push(&apos;Van&apos;);
+alert(person1.friends);  //&apos;shelby&apos;,&apos;court&apos;,&apos;Van&apos;
+alert(person2.friends);  //&apos;shelby&apos;,&apos;court&apos;
+
+//再次证明了私有属性是每个实例所特有的，而继承原型的属性是共享的
+alert(person1.friends == person2.friends);  //false
+alert(person1.sayName == person2.sayName);  //true
+</code></pre><p>如果哪里有错误的话请与我联系，我会及时更正，联系方式在右边个人介绍中，谢谢观看。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Javascript/" rel="tag"># Javascript</a>
+          
+            <a href="/tags/原型/" rel="tag"># 原型</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/03/07/关于编程思想的一点感悟/" rel="prev" title="关于编程思想的一点感悟">
+                关于编程思想的一点感悟 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.jpg"
+               alt="Klaus" />
+          <p class="site-author-name" itemprop="name">Klaus</p>
+           
+              <p class="site-description motion-element" itemprop="description">Keep learning, keep running.</p>
+          
+        </div>
+        <nav class="site-state motion-element">
+
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives/">
+                <span class="site-state-item-count">7</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-categories">
+              <a href="/categories/index.html">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            
+            
+            <div class="site-state-item site-state-tags">
+              <a href="/tags/index.html">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/Klaus1995" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.zhihu.com/people/wang-xiao-bai-28-69/activities" target="_blank" title="Zhihu">
+                  
+                    <i class="fa fa-fw fa-zhihu"></i>
+                  
+                  Zhihu
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#工厂模式"><span class="nav-number">2.</span> <span class="nav-text">工厂模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数模式"><span class="nav-number">3.</span> <span class="nav-text">构造函数模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原型模式"><span class="nav-number">4.</span> <span class="nav-text">原型模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#组合使用构造函数模式和原型模式"><span class="nav-number">5.</span> <span class="nav-text">组合使用构造函数模式和原型模式</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Klaus</span>
+</div>
+
+
+<div class="powered-by">
+  由 <a class="theme-link" href="https://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+  
+  
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+  
+  <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three.min.js"></script>
+
+  
+  <script type="text/javascript" src="/lib/three/three-waves.min.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.1"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.1"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.1"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Klaus.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://www.klaus1995.com/2017/03/06/JS原型/';
+          this.page.identifier = '2017/03/06/JS原型/';
+          this.page.title = 'JS原型';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Klaus.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
