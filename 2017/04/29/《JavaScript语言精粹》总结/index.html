@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Klaus&#39; blog">
 <meta property="og:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 Function.prototype.method = function (name, func) &amp;#123;	this.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
-<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png">
 <meta property="og:updated_time" content="2017-07-22T20:04:25.585Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《JavaScript语言精粹》总结">
 <meta name="twitter:description" content="前言因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。 第一章 精华为什么要使用JavaScript分析JavaScript一个简单的试验场本书贯彻始终会使用一个method方法去定义新方法。 Function.prototype.method = function (name, func) &amp;#123;	this.">
-<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png">
 
 
 
@@ -410,7 +410,7 @@
 </code></pre><h1 id="第二章-语法"><a href="#第二章-语法" class="headerlink" title="第二章 语法"></a>第二章 语法</h1><h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><p>建议使用<code>//</code>来注释，避免使用<code>/* */</code>，因为有的正则表达式可能会造成问题，例如：</p>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    var rm_a = /a*/</span>.match(s);</span><br><span class="line">*<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
 <h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>不允许用保留字来命名变量或者参数。</p>
-<p><img src="《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png" alt=""></p>
+<p><img src="/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png" alt=""></p>
 <h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>JavaScript只有一个数字类型，内部表示为64位浮点数。</p>
 <p>NaN不等于任何值（包括它自己），可以用函数isNaN(number)检测。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串一旦被创建，就永远无法改变它，后续的修改只是创建了新的字符串而不是在其本身进行修改。</p>
@@ -426,7 +426,7 @@
 <p>break语句可以跳出循环，continue语句可以跳过循环体中后续代码，直接执行下次循环。</p>
 <p>可以给循环加label，然后break label跳出特定循环，在复杂的循环中可能会用到。</p>
 <p>各种运算的优先级：</p>
-<p><img src="《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png" alt=""></p>
+<p><img src="/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结2.png" alt=""></p>
 <h2 id="字面量"><a href="#字面量" class="headerlink" title="字面量"></a>字面量</h2><h2 id="函数"><a href="#函数" class="headerlink" title="函数"></a>函数</h2><h1 id="第三章-对象"><a href="#第三章-对象" class="headerlink" title="第三章 对象"></a>第三章 对象</h1><h2 id="对象字面量"><a href="#对象字面量" class="headerlink" title="对象字面量"></a>对象字面量</h2><p>对象字面量提供了一种非常方便地创建新对象值的表示法。</p>
 <p>对象的属性名可以是包括空字符串在内的任意字符串，一般不用引号括住，但是如果是保留字或者非法的标识符（例如first-name是非法的，first_name就是合法的），就必须用引号括住。</p>
 <p>对象可以嵌套。</p>

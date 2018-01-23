@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Klaus&#39; blog">
 <meta property="og:description" content="前言本篇文章继续讲js原型和继承，参考高程三第六章。  原型链先上一段代码（继承）： function SuperType()&amp;#123;	this.property = &apos;super&apos;;&amp;#125;SuperType.prototype.getSuperValue = function()&amp;#123;	return this.property;&amp;#125;function SubType()&amp;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承/JS继承1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承1.png">
 <meta property="og:updated_time" content="2017-07-23T09:17:23.802Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS继承">
 <meta name="twitter:description" content="前言本篇文章继续讲js原型和继承，参考高程三第六章。  原型链先上一段代码（继承）： function SuperType()&amp;#123;	this.property = &apos;super&apos;;&amp;#125;SuperType.prototype.getSuperValue = function()&amp;#123;	return this.property;&amp;#125;function SubType()&amp;#">
-<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承/JS继承1.png">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/08/JS继承/JS继承1.png">
 
 
 
@@ -409,7 +409,7 @@
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SuperType</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.property = <span class="string">'super'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">SuperType.prototype.getSuperValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.property;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">SubType</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.subproperty = <span class="string">'sub'</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//继承了SuperType</span></span><br><span class="line">SubType.prototype = <span class="keyword">new</span> SuperType();</span><br><span class="line"></span><br><span class="line">SubType.prototype.getSubValue = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>.subproperty;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> instance = <span class="keyword">new</span> SubType();</span><br><span class="line">alert(instance.getSuperValue());  <span class="comment">//super</span></span><br><span class="line">alert(instance.getSubValue());  <span class="comment">//sub</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//检测实例对象的类型</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> <span class="built_in">Object</span>);  <span class="comment">//true</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> SuperType);  <span class="comment">//true</span></span><br><span class="line">alert(instance <span class="keyword">instanceof</span> SubType);  <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
 <p>其中的<code>SubType.prototype = new SuperType();</code>可以这么理解：sub实例的爸爸（原型）= super的实例，所以sub实例的爷爷 = super实例的爸爸（原型），他们的继承关系就是<code>SuperType.prototype==&gt;SubType.prototype(new SuperType())==&gt;new SubType()</code>。</p>
 <p>所以它们之间的指针关系如图：</p>
-<p><img src="JS继承/JS继承1.png" alt=""></p>
+<p><img src="/2017/03/08/JS继承/JS继承1.png" alt=""></p>
 <p><strong style="color: red">注意：</strong></p>
 <ul>
 <li>想要修改SubType的原型的话，要在<code>SubType.prototype = new SuperType();</code>语句之后写（之前写的话，这一条赋值语句会修改SubType.prototype的指针，相当于之前写的都没用了）。</li>

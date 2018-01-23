@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Klaus&#39; blog">
 <meta property="og:description" content="前言本文主要总结了js面向对象编程的发展过程，参考高程三第六章。  工厂模式最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。 function createPerson(name,age,job)&amp;#123;	var o =new Object();	o.name = name;	o.age = age;	o.job = job;	o.sayName">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型/JS原型1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型1.png">
 <meta property="og:updated_time" content="2017-07-23T09:20:45.753Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JS原型">
 <meta name="twitter:description" content="前言本文主要总结了js面向对象编程的发展过程，参考高程三第六章。  工厂模式最开始创建一个对象所使用的是工厂模式，因为js没有类的概念，所以通常会封装一个创建对象的函数。 function createPerson(name,age,job)&amp;#123;	var o =new Object();	o.name = name;	o.age = age;	o.job = job;	o.sayName">
-<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型/JS原型1.png">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/03/06/JS原型/JS原型1.png">
 
 
 
@@ -453,7 +453,7 @@
 <li>person1的[[prototype]]  ==&gt;  Person.prototype  (由于这个属性是隐藏的不可访问，可以用Person.prototype.isPrototypeOf(person1)为true，或者person1.__proto__  ==&gt;  Person.prototype表示)</li>
 <li>由于实例继承了原型的属性，所以person1.constructor  ==&gt;  Person</li>
 </ul>
-<p><img src="JS原型/JS原型1.png" alt=""></p>
+<p><img src="/2017/03/06/JS原型/JS原型1.png" alt=""></p>
 <p>最后，说说最终组合使用构造函数模式和原型模式创建对象的优点：</p>
 <ul>
 <li>能够检测对象的类型；</li>
