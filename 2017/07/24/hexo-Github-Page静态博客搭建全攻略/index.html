@@ -418,19 +418,19 @@
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近重新捡起了博客，用最简单的hexo+Github Page重新搭了静态的博客，用了next的主题，也踩了不少坑。这里写了从零到一完全搭建过程，以帮助其他人，避免踩坑。</p>
 <h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><h2 id="安装Git和node-js"><a href="#安装Git和node-js" class="headerlink" title="安装Git和node.js"></a>安装Git和node.js</h2><p>首先，需要安装node.js和Git，过程比较简单，这里就不具体介绍了，最后别忘了配置环境变量。</p>
 <ul>
-<li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a></li>
-<li><a href="https://nodejs.org/en/" target="_blank" rel="external">node.js</a></li>
+<li><a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></li>
+<li><a href="https://nodejs.org/en/" target="_blank" rel="noopener">node.js</a></li>
 </ul>
 <p>为了更快地下载，安装npm的淘宝镜像。</p>
-<figure class="highlight coffeescript"><table><tr><td class="code"><pre><div class="line">$ <span class="built_in">npm</span> install -g cnpm --registry=https:<span class="regexp">//</span>registry.<span class="built_in">npm</span>.taobao.org</div></pre></td></tr></table></figure>
+<figure class="highlight coffeescript"><table><tr><td class="code"><pre><span class="line">$ <span class="built_in">npm</span> install -g cnpm --registry=https:<span class="regexp">//</span>registry.<span class="built_in">npm</span>.taobao.org</span><br></pre></td></tr></table></figure>
 <h2 id="安装hexo"><a href="#安装hexo" class="headerlink" title="安装hexo"></a>安装hexo</h2><p>打开命令行，安装hexo，然后配置环境变量。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> cnpm install -g hexo-cli</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> cnpm install -g hexo-cli</span></span><br></pre></td></tr></table></figure>
 <p>我在这里把文件目录放在D盘根目录。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo init blog</span></div><div class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> blog</span></div><div class="line"><span class="meta">$</span><span class="bash"> cnpm install</span></div><div class="line"><span class="meta">$</span><span class="bash"> hexo s</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo init blog</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> <span class="built_in">cd</span> blog</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> cnpm install</span></span><br><span class="line"><span class="meta">$</span><span class="bash"> hexo s</span></span><br></pre></td></tr></table></figure>
 <p>访问本地4000端口，如果能访问到博客页面，则证明安装成功。按<code>Ctrl</code>+<code>C</code>结束本地服务。</p>
 <p>接下来安装next主题。</p>
-<figure class="highlight vim"><table><tr><td class="code"><pre><div class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></div></pre></td></tr></table></figure>
-<h2 id="注册Github并新建库"><a href="#注册Github并新建库" class="headerlink" title="注册Github并新建库"></a>注册Github并新建库</h2><p><a href="https://github.com/" target="_blank" rel="external">Github</a>注册的话比较简单就不介绍了，注册好登录后新建一个库以后用来放博客项目。</p>
+<figure class="highlight vim"><table><tr><td class="code"><pre><span class="line">$ git clone http<span class="variable">s:</span>//github.<span class="keyword">com</span>/iissnan/hexo-theme-<span class="keyword">next</span> themes/<span class="keyword">next</span></span><br></pre></td></tr></table></figure>
+<h2 id="注册Github并新建库"><a href="#注册Github并新建库" class="headerlink" title="注册Github并新建库"></a>注册Github并新建库</h2><p><a href="https://github.com/" target="_blank" rel="noopener">Github</a>注册的话比较简单就不介绍了，注册好登录后新建一个库以后用来放博客项目。</p>
 <p><img src="/2017/07/24/hexo-Github-Page静态博客搭建全攻略/1.png" alt=""></p>
 <p><img src="/2017/07/24/hexo-Github-Page静态博客搭建全攻略/2.png" alt=""></p>
 <p>建好仓库之后，点击进入该仓库，修改设置，开启Github Page。</p>
@@ -465,23 +465,23 @@
 <p><img src="/2017/07/24/hexo-Github-Page静态博客搭建全攻略/12.png" alt=""></p>
 <p>这些就是一些主要的配置，其他的配置可以阅读hexo和next的官方文档自行尝试。</p>
 <ul>
-<li><a href="https://hexo.io/" target="_blank" rel="external">hexo</a></li>
-<li><a href="http://theme-next.iissnan.com/" target="_blank" rel="external">next</a></li>
+<li><a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a></li>
+<li><a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next</a></li>
 </ul>
 <p>不喜欢next主题的可以尝试别的主题，配置都大同小异。</p>
 <ul>
-<li><a href="https://hexo.io/themes/" target="_blank" rel="external">hexo主题</a></li>
+<li><a href="https://hexo.io/themes/" target="_blank" rel="noopener">hexo主题</a></li>
 </ul>
 <h1 id="hexo使用方法"><a href="#hexo使用方法" class="headerlink" title="hexo使用方法"></a>hexo使用方法</h1><p>首先，在blog文件夹根目录按<code>Shift</code>+鼠标右键打开命令行，新建文章。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">"文章标题"</span></span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo n <span class="string">"文章标题"</span></span></span><br></pre></td></tr></table></figure>
 <p>然后打开source_posts文件夹，找到相应的md文件，打开编辑。文档采用的是markdown的语法。</p>
 <ul>
-<li><a href="http://www.appinn.com/markdown/" target="_blank" rel="external">markdown</a></li>
+<li><a href="http://www.appinn.com/markdown/" target="_blank" rel="noopener">markdown</a></li>
 </ul>
 <p>写完保存成功后，命令行执行生成命令。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo g</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo g</span></span><br></pre></td></tr></table></figure>
 <p>生成成功后，接下来进行部署。</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><div class="line"><span class="meta">$</span><span class="bash"> hexo d</span></div></pre></td></tr></table></figure>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> hexo d</span></span><br></pre></td></tr></table></figure>
 <p>部署成功后，就可以访问自己的博客啦，博客默认地址是yourGithubName.github.io。</p>
 <p>至于如何设置博客的小图标、修改代码块显示风格、代码高亮、如何在博文中插入图片、如何把博客地址绑定为自定义域名之类的问题，可以自行google或者私下问我，感谢观看！</p>
 
@@ -717,8 +717,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

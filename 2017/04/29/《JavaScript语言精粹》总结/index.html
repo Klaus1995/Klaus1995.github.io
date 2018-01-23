@@ -407,20 +407,20 @@
       
         <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>因为最近没有在写什么项目，于是打算把《javascript语言精粹》看一遍，顺便写个总结笔记，本文只记载了我觉得可能要记下来的东西。</p>
 <h1 id="第一章-精华"><a href="#第一章-精华" class="headerlink" title="第一章 精华"></a>第一章 精华</h1><h2 id="为什么要使用JavaScript"><a href="#为什么要使用JavaScript" class="headerlink" title="为什么要使用JavaScript"></a>为什么要使用JavaScript</h2><h2 id="分析JavaScript"><a href="#分析JavaScript" class="headerlink" title="分析JavaScript"></a>分析JavaScript</h2><h2 id="一个简单的试验场"><a href="#一个简单的试验场" class="headerlink" title="一个简单的试验场"></a>一个简单的试验场</h2><p>本书贯彻始终会使用一个method方法去定义新方法。</p>
-<pre><code><figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span> (<span class="params">name, func</span>) </span>&#123;</div><div class="line">	<span class="keyword">this</span>.prototype[name] = func;</div><div class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<pre><code><figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="built_in">Function</span>.prototype.method = <span class="function"><span class="keyword">function</span> (<span class="params">name, func</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">this</span>.prototype[name] = func;</span><br><span class="line">	<span class="keyword">return</span> <span class="keyword">this</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 </code></pre><h1 id="第二章-语法"><a href="#第二章-语法" class="headerlink" title="第二章 语法"></a>第二章 语法</h1><h2 id="空白"><a href="#空白" class="headerlink" title="空白"></a>空白</h2><p>建议使用<code>//</code>来注释，避免使用<code>/* */</code>，因为有的正则表达式可能会造成问题，例如：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="comment">/* </span></div><div class="line">    var rm_a = /a*/.match(s);</div><div class="line">*<span class="regexp">/</span></div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="comment">/* </span></span><br><span class="line"><span class="comment">    var rm_a = /a*/</span>.match(s);</span><br><span class="line">*<span class="regexp">/</span></span><br></pre></td></tr></table></figure>
 <h2 id="标识符"><a href="#标识符" class="headerlink" title="标识符"></a>标识符</h2><p>不允许用保留字来命名变量或者参数。</p>
 <p><img src="/2017/04/29/《JavaScript语言精粹》总结/《JavaScript语言精粹》总结1.png" alt=""></p>
 <h2 id="数字"><a href="#数字" class="headerlink" title="数字"></a>数字</h2><p>JavaScript只有一个数字类型，内部表示为64位浮点数。</p>
 <p>NaN不等于任何值（包括它自己），可以用函数isNaN(number)检测。</p>
 <h2 id="字符串"><a href="#字符串" class="headerlink" title="字符串"></a>字符串</h2><p>字符串一旦被创建，就永远无法改变它，后续的修改只是创建了新的字符串而不是在其本身进行修改。</p>
 <p>这也就是从前讲优化的时候有一个点是，对于字符串的相加操作建议用数组方法替代，就像这样：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">var</span> mychar = <span class="string">'a'</span> + <span class="string">'b'</span> + <span class="string">'c'</span>;</div><div class="line"></div><div class="line"><span class="comment">//建议替换为数组操作</span></div><div class="line"><span class="keyword">var</span> myArr = [];</div><div class="line">myArr.push(<span class="string">'a'</span>);</div><div class="line">myArr.push(<span class="string">'b'</span>);</div><div class="line">myArr.push(<span class="string">'c'</span>);</div><div class="line"><span class="keyword">var</span> myChar = myArr.join(<span class="string">''</span>);</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> mychar = <span class="string">'a'</span> + <span class="string">'b'</span> + <span class="string">'c'</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//建议替换为数组操作</span></span><br><span class="line"><span class="keyword">var</span> myArr = [];</span><br><span class="line">myArr.push(<span class="string">'a'</span>);</span><br><span class="line">myArr.push(<span class="string">'b'</span>);</span><br><span class="line">myArr.push(<span class="string">'c'</span>);</span><br><span class="line"><span class="keyword">var</span> myChar = myArr.join(<span class="string">''</span>);</span><br></pre></td></tr></table></figure>
 <p>不过好像是由于浏览器和引擎的内部优化，一般不会造成太大影响，所以现在基本不怎么提了，也不怎么用吧好像。</p>
 <h2 id="语句"><a href="#语句" class="headerlink" title="语句"></a>语句</h2><p>可以通过条件语句（if和switch）、循环语句（while、for和do）、强制跳转语句（break、return和throw）和函数调用来改变执行序列。</p>
 <p>for in语句会遍历对象的所有可枚举属性（包括继承的），所以如果只想要遍历属性自己的属性，可加一步判断。</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><div class="line"><span class="keyword">for</span> (myVar <span class="keyword">in</span> obj) &#123;</div><div class="line">	<span class="keyword">if</span> (obj.hasOwnProperty(myVar)) &#123;</div><div class="line">		...</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> (myVar <span class="keyword">in</span> obj) &#123;</span><br><span class="line">	<span class="keyword">if</span> (obj.hasOwnProperty(myVar)) &#123;</span><br><span class="line">		...</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>do和while的区别就是do至少会执行一次循环体里面的代码。</p>
 <p>try catch语句会捕获try代码块中的异常，并自动跳转到catch代码块执行其中的代码。</p>
 <p>throw语句就是认为抛出一个异常，如果throw语句在函数中，则函数调用被放弃。</p>
@@ -436,8 +436,8 @@
 <p>如果检索了<code>undefined</code>的某个属性，会抛出TypeError异常。</p>
 <h2 id="更新"><a href="#更新" class="headerlink" title="更新"></a>更新</h2><p>给对象的某个属性赋值，如果对象存在这个属性，则覆盖属性原来的值，不存在的话，则创建属性并赋值。</p>
 <h2 id="引用"><a href="#引用" class="headerlink" title="引用"></a>引用</h2><p>对象是引用类型值，只会被引用，不会被复制（除非用一些特定的方法函数）。</p>
-<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>想要具体了解原型可以看我关于原型的博客文章<a href="https://klaus1995.github.io/2017/03/06/JS%E5%8E%9F%E5%9E%8B/" target="_blank" rel="external">JS原型</a>。</p>
-<p>然后推荐一本书<a href="https://book.douban.com/subject/26351021/" target="_blank" rel="external">你不知道的JavaScript（上卷）</a>，书中也对原型有了非常深刻的讲解，我觉得讲得非常好。</p>
+<h2 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h2><p>想要具体了解原型可以看我关于原型的博客文章<a href="https://klaus1995.github.io/2017/03/06/JS%E5%8E%9F%E5%9E%8B/" target="_blank" rel="noopener">JS原型</a>。</p>
+<p>然后推荐一本书<a href="https://book.douban.com/subject/26351021/" target="_blank" rel="noopener">你不知道的JavaScript（上卷）</a>，书中也对原型有了非常深刻的讲解，我觉得讲得非常好。</p>
 <h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><p>for in语句可以遍历对象的所有可枚举属性，属性名出现的顺序是不确定的。</p>
 <h2 id="删除"><a href="#删除" class="headerlink" title="删除"></a>删除</h2><p>delete运算符可以用来删除对象的属性。如果对象包含该属性，那么该属性就会被移除。它不会触及原型链中的任何对象。</p>
 <h2 id="减少全局变量污染"><a href="#减少全局变量污染" class="headerlink" title="减少全局变量污染"></a>减少全局变量污染</h2><p>在没有必要的情况下应该尽量减少全局变量的使用。</p>
@@ -702,8 +702,8 @@
       <div class="footer-inner">
         <div class="copyright" >
   
-  &copy; 
-  <span itemprop="copyrightYear">2017</span>
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2018</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
