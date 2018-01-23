@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/favicon.ico?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/favicon.ico?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="web优化," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="前言本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击视频播放地址。 浏览器的渲染原理基本渲染过程 由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。  首先浏览器会解析HTML文档，生成相应的DOM树。 然后浏览器会解析文档的样式，生成CSSOM。 在以上两步中穿插着js的代码解析。 然后浏览器会">
+<meta name="keywords" content="web优化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关键渲染路径性能优化">
+<meta property="og:url" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/index.html">
+<meta property="og:site_name" content="Klaus&#39; blog">
+<meta property="og:description" content="前言本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击视频播放地址。 浏览器的渲染原理基本渲染过程 由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。  首先浏览器会解析HTML文档，生成相应的DOM树。 然后浏览器会解析文档的样式，生成CSSOM。 在以上两步中穿插着js的代码解析。 然后浏览器会">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化1.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化2.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化3.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化4.png">
+<meta property="og:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化5.png">
+<meta property="og:updated_time" content="2017-07-23T09:22:54.110Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="关键渲染路径性能优化">
+<meta name="twitter:description" content="前言本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击视频播放地址。 浏览器的渲染原理基本渲染过程 由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。  首先浏览器会解析HTML文档，生成相应的DOM树。 然后浏览器会解析文档的样式，生成CSSOM。 在以上两步中穿插着js的代码解析。 然后浏览器会">
+<meta name="twitter:image" content="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/关键渲染路径性能优化/关键渲染路径性能优化1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"right","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/"/>
+
+
+
+
+
+  <title>关键渲染路径性能优化 | Klaus' blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-right page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Klaus' blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  
+  <div class="algolia-popup popup search-popup">
+    <div class="algolia-search">
+      <div class="algolia-search-input-icon">
+        <i class="fa fa-search"></i>
+      </div>
+      <div class="algolia-search-input" id="algolia-search-input"></div>
+    </div>
+
+    <div class="algolia-results">
+      <div id="algolia-stats"></div>
+      <div id="algolia-hits"></div>
+      <div id="algolia-pagination" class="algolia-pagination"></div>
+    </div>
+
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+  </div>
+
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Klaus">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Klaus' blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">关键渲染路径性能优化</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2017-04-27T16:57:50+08:00">
+                2017-04-27
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/web优化/" itemprop="url" rel="index">
+                    <span itemprop="name">web优化</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2017/04/27/关键渲染路径性能优化/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count disqus-comment-count"
+                        data-disqus-identifier="2017/04/27/关键渲染路径性能优化/" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>本文主要是介绍了WEB关键渲染路径性能优化，是我在观看360奇舞团相关课程之后的一个总结，想要观看视频的请点击<a href="https://t.75team.com/video/play?id=65_260_2017032010370819aadb47-c79c-4d63-afd4-df0b42eaee48" target="_blank" rel="noopener">视频播放地址</a>。</p>
+<h1 id="浏览器的渲染原理"><a href="#浏览器的渲染原理" class="headerlink" title="浏览器的渲染原理"></a>浏览器的渲染原理</h1><h2 id="基本渲染过程"><a href="#基本渲染过程" class="headerlink" title="基本渲染过程"></a>基本渲染过程</h2><p><img src="关键渲染路径性能优化/关键渲染路径性能优化1.png" alt=""></p>
+<p>由图可以看出基本渲染过程，过程可以在Chrome开发者工具中的Timeline中进行查看。</p>
+<ol>
+<li>首先浏览器会解析HTML文档，生成相应的DOM树。</li>
+<li>然后浏览器会解析文档的样式，生成CSSOM。</li>
+<li>在以上两步中穿插着js的代码解析。</li>
+<li>然后浏览器会结合解析完的DOM和CSSOM，生成一个RenderTree。</li>
+<li>再然后，浏览器会根据生成的RenderTree进行相应的计算分给每个元素的空间大小以及相应的位置，进行Layout。</li>
+<li>最后，会具体渲染每个元素的细节部分，也就是Paint。</li>
+</ol>
+<p><img src="关键渲染路径性能优化/关键渲染路径性能优化2.png" alt=""></p>
+<p>这是我加载百度首页时截的部分图，可以简单看出渲染过程。</p>
+<h2 id="Parse-HTML-to-DOM"><a href="#Parse-HTML-to-DOM" class="headerlink" title="Parse HTML to DOM"></a>Parse HTML to DOM</h2><p>这个过程就是将请求得到的HTML文档解析生成DOM树。</p>
+<p>注意：</p>
+<ul>
+<li>浏览器的解析过程是<strong>增量构建</strong>的，即浏览器无需等待HTML加载完毕，便可开始解析DOM。</li>
+</ul>
+<h2 id="Parse-Stylesheet-to-CSSOM"><a href="#Parse-Stylesheet-to-CSSOM" class="headerlink" title="Parse Stylesheet to CSSOM"></a>Parse Stylesheet to CSSOM</h2><p>这个过程就是将的到的HTML中的style标签中的内容以及下载的css文件解析为CSSOM的过程，类似于生成DOM的过程。</p>
+<p>注意：</p>
+<ul>
+<li>css选择器越详细，匹配速度越慢。</li>
+</ul>
+<h2 id="Recalculate-Style"><a href="#Recalculate-Style" class="headerlink" title="Recalculate Style"></a>Recalculate Style</h2><p>浏览器会将上两步得到的结果相结合，生成RenderTree。</p>
+<p>注意：</p>
+<ul>
+<li>RenderTree包含了渲染页面所需要的节点。</li>
+<li>无需渲染的节点不会被添加到RenderTree里，例如html和head节点，以及display:none的节点。</li>
+<li>visibility:hidden的节点会被渲染，因为他虽然不可见，但是在页面中占有一定的位置。</li>
+</ul>
+<h2 id="Layout"><a href="#Layout" class="headerlink" title="Layout"></a>Layout</h2><p>这个过程就是浏览器计算渲染树节点的位置和大小。</p>
+<p>注意：</p>
+<ul>
+<li>可以设置viewport来设置浏览器的理想窗口（一般应用在移动端）。通过在HTML中加入<code>&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width&quot;&gt;</code>来设置理想窗口，如果不设置一般默认980px。</li>
+<li>触发Layout的条件（不全）：</li>
+</ul>
+<ol>
+<li>屏幕旋转</li>
+<li>浏览器视窗的变化</li>
+<li>与大小位置相关的CSS属性的变化</li>
+</ol>
+<h2 id="Paint"><a href="#Paint" class="headerlink" title="Paint"></a>Paint</h2><p>这个过程就是具体的填充过程，也就是渲染例如颜色等等样式。</p>
+<h2 id="补充内容"><a href="#补充内容" class="headerlink" title="补充内容"></a>补充内容</h2><p>Layout和Paint是两个不同的过程，与之相关的就是我们经常说到的回流（reflow）与重绘（repaint），如果想要了解这方面具体的内容，可以看张鑫旭翻译的这篇文章<a href="http://www.zhangxinxu.com/wordpress/2010/01/%E5%9B%9E%E6%B5%81%E4%B8%8E%E9%87%8D%E7%BB%98%EF%BC%9Acss%E6%80%A7%E8%83%BD%E8%AE%A9javascript%E5%8F%98%E6%85%A2%EF%BC%9F/" target="_blank" rel="noopener">回流与重绘：CSS性能让JavaScript变慢？</a></p>
+<p>另外，CSS也是增量构建的，但不是增量渲染的，它只会在所有样式都构建完成以后统一渲染（因为后面设置的样式会将前面设置的样式覆盖掉），然后生成RenderTree。</p>
+<h1 id="资源对渲染的影响"><a href="#资源对渲染的影响" class="headerlink" title="资源对渲染的影响"></a>资源对渲染的影响</h1><h2 id="资源类型"><a href="#资源类型" class="headerlink" title="资源类型"></a>资源类型</h2><p>资源类型有很多，最常见的是：</p>
+<ul>
+<li>CSS</li>
+<li>JS</li>
+<li>font</li>
+<li>img</li>
+</ul>
+<h2 id="CSS"><a href="#CSS" class="headerlink" title="CSS"></a>CSS</h2><p>首先，页面会在加载DOM和CSSOM之后开始初次渲染页面，而不是加载完DOM就立即开始渲染，这就造成了CSS 阻塞初次渲染的现象。</p>
+<p>注意：</p>
+<ul>
+<li>通过<code>&lt;style&gt;/* styles here */&lt;/style&gt;</code>和<code>&lt;link rel=&quot;stylesheet&quot; href=&quot;index.css&quot;&gt;</code>定义的CSS，均会阻塞初次渲染。</li>
+<li>浏览器会在解析CSS完成之后进行初次渲染，这是为了防止样式突变带来的抖动。</li>
+<li>不管CSS出现在文档的哪个位置，都会阻塞整个文档的初次渲染。</li>
+<li>通过link标签引入的CSS阻塞的时间可能更长，因为加载它需要一个网络来回时间。</li>
+</ul>
+<p>媒体查询：</p>
+<ul>
+<li><code>&lt;link rel=&quot;stylesheet&quot; href=&quot;index_print.css&quot; media=&quot;print&quot;&gt;</code></li>
+<li>此样式表仍会加载</li>
+<li>当浏览器环境不匹配媒体查询条件时，该样式表不会阻塞渲染</li>
+<li>我们可以针对不同的媒体环境拆分CSS文件，并为link标签添加媒体查询，避免为了加载非关键CSS资源，而阻塞了初次渲染</li>
+</ul>
+<p>各种加载CSS的方法：</p>
+<p><img src="关键渲染路径性能优化/关键渲染路径性能优化3.png" alt=""></p>
+<p>但是请注意，虽然有的方法不会阻塞初次渲染，但是会在后来加载完CSS文件以后使页面产生一个巨大的抖动（渲染样式）。</p>
+<h2 id="JS"><a href="#JS" class="headerlink" title="JS"></a>JS</h2><p>在HTML中加载JS代码会阻塞初次渲染。</p>
+<p>注意：</p>
+<ul>
+<li>通过<code>&lt;script&gt;&lt;/script&gt;</code>标签和外部引用JS文件均会阻塞HTML parser，因而会阻塞出现在脚本后面的HTML标记的渲染。</li>
+<li>通过外部引入的JS文件阻塞的时间可能更长，因为加载它需要一个网络来回时间。</li>
+<li>JS可以修改DOM，所以在加载JS代码的时候，浏览器会停止解析DOM的工作。</li>
+</ul>
+<p>同时，CSS也会阻塞JS。这是因为JavaScript可能会读取和修改CSSOM，因此要等到CSSOM构建完成之后，JS才会执行。</p>
+<p>两个并列的外部引用的JS文件会同时进行加载（不是解析），这是因为JS虽然会阻塞HTML parser，停止DOM的构建工作，但是浏览器会去识别脚本后面的资源，并提前加载。</p>
+<p>因此，可以通过把<code>&lt;script&gt;&lt;/script&gt;</code>标签放到文档最后，或者用defer和async属性来解决JS加载对HTML parser的阻塞。defer和async属性有差异，具体看下图：</p>
+<p><img src="关键渲染路径性能优化/关键渲染路径性能优化4.png" alt=""></p>
+<p>各种加载JS的方法：</p>
+<p><img src="关键渲染路径性能优化/关键渲染路径性能优化5.png" alt=""></p>
+<h2 id="font"><a href="#font" class="headerlink" title="font"></a>font</h2><p>在加载完HTML文档后，浏览器会等待字体文件加载完成后，才会显示具体内容（应用了该字体的元素）。</p>
+<p>通过preload异步加载CSS字体文件，就不会阻塞初次渲染。</p>
+<h2 id="img"><a href="#img" class="headerlink" title="img"></a>img</h2><p>图片文件并不会阻塞初次渲染。</p>
+<h1 id="优化关键渲染路径"><a href="#优化关键渲染路径" class="headerlink" title="优化关键渲染路径"></a>优化关键渲染路径</h1><h2 id="优化目标"><a href="#优化目标" class="headerlink" title="优化目标"></a>优化目标</h2><p>将以下指标压缩到最低：</p>
+<ul>
+<li>关键资源数</li>
+<li>关键资源体积</li>
+<li>关键资源网络来回数</li>
+</ul>
+<h2 id="优化方法"><a href="#优化方法" class="headerlink" title="优化方法"></a>优化方法</h2><ul>
+<li>上面提到的为了防止阻塞的各种方法。</li>
+<li>部分CSS和JS使用内联以减少关键资源数和关键资源网络来回（请勿盲目使用内联）。</li>
+<li>http2主动推送所需要的资源（目前支持并不好）。</li>
+<li>利用缓存和内联（第一次用内联优化，以后就利用缓存）。</li>
+<li>各种类型的文件压缩。</li>
+<li>服务器优化。</li>
+<li>合理利用缓存，优化网络。</li>
+</ul>
+<p>如果哪里有错误的话请留下评论，我会及时更正，谢谢观看。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/web优化/" rel="tag"># web优化</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/03/21/常用代码/" rel="next" title="常用代码">
+                <i class="fa fa-chevron-left"></i> 常用代码
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/29/《JavaScript语言精粹》总结/" rel="prev" title="《JavaScript语言精粹》总结">
+                《JavaScript语言精粹》总结 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="disqus_thread">
+        <noscript>
+          Please enable JavaScript to view the
+          <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+        </noscript>
+      </div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/avatar.jpeg"
+                alt="Klaus" />
+            
+              <p class="site-author-name" itemprop="name">Klaus</p>
+              <p class="site-description motion-element" itemprop="description">Keep learning, keep running.</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Klaus1995" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.zhihu.com/people/wang-xiao-bai-28-69/activities" target="_blank" title="Zhihu">
+                      
+                        <i class="fa fa-fw fa-zhihu"></i>Zhihu</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-number">1.</span> <span class="nav-text">前言</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浏览器的渲染原理"><span class="nav-number">2.</span> <span class="nav-text">浏览器的渲染原理</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#基本渲染过程"><span class="nav-number">2.1.</span> <span class="nav-text">基本渲染过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parse-HTML-to-DOM"><span class="nav-number">2.2.</span> <span class="nav-text">Parse HTML to DOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Parse-Stylesheet-to-CSSOM"><span class="nav-number">2.3.</span> <span class="nav-text">Parse Stylesheet to CSSOM</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Recalculate-Style"><span class="nav-number">2.4.</span> <span class="nav-text">Recalculate Style</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Layout"><span class="nav-number">2.5.</span> <span class="nav-text">Layout</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Paint"><span class="nav-number">2.6.</span> <span class="nav-text">Paint</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#补充内容"><span class="nav-number">2.7.</span> <span class="nav-text">补充内容</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#资源对渲染的影响"><span class="nav-number">3.</span> <span class="nav-text">资源对渲染的影响</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#资源类型"><span class="nav-number">3.1.</span> <span class="nav-text">资源类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CSS"><span class="nav-number">3.2.</span> <span class="nav-text">CSS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JS"><span class="nav-number">3.3.</span> <span class="nav-text">JS</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#font"><span class="nav-number">3.4.</span> <span class="nav-text">font</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#img"><span class="nav-number">3.5.</span> <span class="nav-text">img</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#优化关键渲染路径"><span class="nav-number">4.</span> <span class="nav-text">优化关键渲染路径</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#优化目标"><span class="nav-number">4.1.</span> <span class="nav-text">优化目标</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#优化方法"><span class="nav-number">4.2.</span> <span class="nav-text">优化方法</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Klaus</span>
+
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+    
+      <script id="dsq-count-scr" src="https://Klaus.disqus.com/count.js" async></script>
+    
+
+    
+      <script type="text/javascript">
+        var disqus_config = function () {
+          this.page.url = 'http://www.klaus1995.com/2017/04/27/关键渲染路径性能优化/';
+          this.page.identifier = '2017/04/27/关键渲染路径性能优化/';
+          this.page.title = '关键渲染路径性能优化';
+        };
+        var d = document, s = d.createElement('script');
+        s.src = 'https://Klaus.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', '' + +new Date());
+        (d.head || d.body).appendChild(s);
+      </script>
+    
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+  
+  
+  
+  <link rel="stylesheet" href="/lib/algolia-instant-search/instantsearch.min.css">
+
+  
+  
+  <script src="/lib/algolia-instant-search/instantsearch.min.js"></script>
+  
+
+  <script src="/js/src/algolia-search.js?v=5.1.4"></script>
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
