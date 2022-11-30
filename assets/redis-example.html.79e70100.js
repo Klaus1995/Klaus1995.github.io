@@ -1,0 +1,11 @@
+import{_ as s}from"./_plugin-vue_export-helper.cdc0426e.js";import{o as n,c as a,e}from"./app.902c8dae.js";const t={},o=e(`<h1 id="redis连接器配置示例" tabindex="-1"><a class="header-anchor" href="#redis连接器配置示例" aria-hidden="true">#</a> Redis连接器配置示例</h1><h2 id="redis写连接器" tabindex="-1"><a class="header-anchor" href="#redis写连接器" aria-hidden="true">#</a> Redis写连接器</h2><p>假设在本地起了一个端口为6379的Redis。用于写入该Redis的配置如下:</p><div class="language-json line-numbers-mode" data-ext="json"><pre class="language-json"><code><span class="token punctuation">{</span>
+   <span class="token property">&quot;job&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+     <span class="token property">&quot;writer&quot;</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+       <span class="token property">&quot;class&quot;</span><span class="token operator">:</span> <span class="token string">&quot;com.bytedance.bitsail.connector.legacy.redis.sink.RedisOutputFormat&quot;</span><span class="token punctuation">,</span>
+       <span class="token property">&quot;redis_data_type&quot;</span><span class="token operator">:</span> <span class="token string">&quot;string&quot;</span><span class="token punctuation">,</span>
+       <span class="token property">&quot;redis_host&quot;</span><span class="token operator">:</span> <span class="token string">&quot;localhost&quot;</span><span class="token punctuation">,</span>
+       <span class="token property">&quot;redis_port&quot;</span><span class="token operator">:</span> <span class="token number">6379</span>
+     <span class="token punctuation">}</span>
+   <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><div class="line-numbers" aria-hidden="true"><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div><div class="line-number"></div></div></div>`,4),p=[o];function i(r,c){return n(),a("div",null,p)}const u=s(t,[["render",i],["__file","redis-example.html.vue"]]);export{u as default};
