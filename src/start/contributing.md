@@ -31,12 +31,12 @@ We are using Intellij as an example for this set up.
 
 Install the checkstyle plugin on your IDE.
 
-![](images/checkstyle_plugin.png)
+![](../images/checkstyle_plugin.png)
 
 We define check style in [tools/maven/checkstyle.xml](https://github.com/bytedance/bitsail/blob/master/tools/maven/checkstyle.xml).
 When developing in IDE, you can import this checkstyle configuration file.
 
-![](images/set_checkstyle.png)
+![](../images/set_checkstyle.png)
 
 After importing, run command `mvn checkstyle:check` to see if checkstyle satisfied.
 
@@ -48,7 +48,7 @@ We use project [lombok](https://projectlombok.org/). So please install this plug
 All the source files are required to add License header. Please add [Apache License header](https://www.apache.org/legal/src-headers#headers)
 to your IDE Copyright settings. After this step, IDE will add license to new source files automatically.
 
-![](images/license_header.png)
+![](../images/license_header.png)
 
 ## Developing Tips
 ### Maven Dependency Enforcement
